@@ -28,5 +28,4 @@ jobs:
     - name: Test with unittest
       run: |
         pip install pytest
-        set PYTHONPATH='.\src'
-        pytest
+        pytest test_app.py
