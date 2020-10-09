@@ -1,0 +1,9 @@
+python -m venv myvenv creating virtual environment
+
+myenv\Scripts\activate for activating virtual environment
+
+pip install flask
+
+pip install pytest
+
+pip freeze > requirements.txt
