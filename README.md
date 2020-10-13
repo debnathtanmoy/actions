@@ -36,7 +36,7 @@ or with conda
 ```bash
 conda install -c conda-forge notebook
 ```
-* Run the jupyter notebook to see the results.
+Run the jupyter notebook to see the results.
 
 
 
