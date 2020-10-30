@@ -27,7 +27,7 @@ function global:deactivate ([switch]$NonDestructive) {
 
 deactivate -nondestructive
 
-$env:VIRTUAL_ENV="C:\Users\320087401\OneDrive - Philips\Desktop\casestudy 2\actions\myvenv"
+$env:VIRTUAL_ENV="C:\Users\320087401\OneDrive - Philips\Desktop\casestudy 2\alert-to-care-s22b12\myvenv"
 
 if (! $env:VIRTUAL_ENV_DISABLE_PROMPT) {
     # Set the prompt to include the env name

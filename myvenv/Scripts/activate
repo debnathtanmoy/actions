@@ -37,7 +37,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="C:\Users\320087401\OneDrive - Philips\Desktop\casestudy 2\actions\myvenv"
+VIRTUAL_ENV="C:\Users\320087401\OneDrive - Philips\Desktop\casestudy 2\alert-to-care-s22b12\myvenv"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

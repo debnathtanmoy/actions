@@ -8,7 +8,7 @@ if defined _OLD_CODEPAGE (
     "%SystemRoot%\System32\chcp.com" 65001 > nul
 )
 
-set "VIRTUAL_ENV=C:\Users\320087401\OneDrive - Philips\Desktop\casestudy 2\actions\myvenv"
+set "VIRTUAL_ENV=C:\Users\320087401\OneDrive - Philips\Desktop\casestudy 2\alert-to-care-s22b12\myvenv"
 
 if not defined PROMPT (
     set "PROMPT=$P$G"
