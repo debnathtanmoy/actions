@@ -1,6 +1,5 @@
-class Beds:
-    def __init__(self, vacant, id, layout, floor):
-        self.vacant = vacant
+class Products:
+    def __init__(self, name,id):
+        self.name = name
         self.id = id
-        self.layout = layout
-        self.floor = floor
+      

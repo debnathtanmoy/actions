@@ -19,7 +19,7 @@ def home():
     return "<h1>Distant Reading Archive</h1>"
 
 
-@app.route('/addBeds', methods=['POST'])
+@app.route('/addproducts', methods=['POST'])
 def addBedsRepository():
     numberofbeds = request.json['numberofbeds']
     message = BedsRepositry.addBeds(numberofbeds)
