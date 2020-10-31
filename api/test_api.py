@@ -25,7 +25,7 @@ class Test(unittest.TestCase):
             "id": "3",
             "name": "mx35"
         },
-         {"id" : "007",
+         {  "id" : "007",
             "name" : "bond"}
         ]
         self.assertEqual(data, expected)

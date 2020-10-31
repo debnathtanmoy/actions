@@ -46,5 +46,6 @@ def addproduct():
 #         prod_list['name'] = request.json['name']
 #         return jsonify({'task': 'updated'})
 
+
 if __name__ == '__main__':
     app.run()
