@@ -1,51 +1,52 @@
-import flask
-from flask import jsonify
-# from flask import abort
+from flask import Flask, jsonify
+from flask import abort
 from flask import request
 
 # flake8: noqa
-app = flask.Flask(__name__)
-app.config["DEBUG"] = True
+app = Flask(__name__)
 
-
-prod_list = [{"name":"mx33",
-               "id": "1"},
-            {"name":"mx34",
-               "id": "2"},
-            {"name":"mx35",
-               "id": "3"}
+products = [
+    {
+        'id': 1,
+        'title': u'mx33',
+        'description': u'effective for small ICUS'
+    },
+    {
+        'id': 2,
+        'title': u'mx53',
+        'description': u'effective for medium sized ICUS'
+    }
 ]
 
-@app.route('/', methods=['GET'])
-def home():
-    return "<h1>Assist to Purchase</h1><p>This site is a prototype API for helping consumers get the best products.</p>"
+@app.route('/getprod', methods=['GET'])
+def get_prod():
+    return jsonify({'products': products})
 
-@app.route('/getproduct',methods=['GET'])
-def getproduct():
-    return jsonify(prod_list)
+@app.route('/getprodid/<int:task_id>', methods=['GET'])
+def get_prod_by_id(task_id):
+    task = [task for task in products if task['id'] == task_id]
+    if len(task) == 0:
+        abort(404)
+    return jsonify({'task': task[0]})
 
-@app.route('/addproducts',methods=['POST'])
+
+@app.route('/addprod',methods=['POST'])
 def addproduct():
     new_prod = {
         "id":request.json["id"],
-        "name":request.json["name"]
+        "title":request.json["title"],
+        'description':request.json["description"]
     }
-    prod_list.append(new_prod)
-    return jsonify(prod_list),201
+    products.append(new_prod)
+    return jsonify(products),201
 
-# @app.route('/deleteprod/<int:task_id>', methods=['DELETE'])
-# def delete_task(task_id):
-#     if request.method == 'DELETE':
-#         prod_list.pop(task_id)
-#         return jsonify({'result': True}),204
-
-# @app.route('/update/<int:task_id>', methods=['PUT'])
-# def update_task(task_id):
-#     if  request.method == 'PUT':
-#         prod_list['id'] = request.json['id']
-#         prod_list['name'] = request.json['name']
-#         return jsonify({'task': 'updated'})
-
+@app.route('/deleteprod/<int:task_id>', methods=['DELETE'])
+def delete_task(task_id):
+    task = [task for task in products if task['id'] == task_id]
+    if len(task) == 0:
+        abort(404)
+    products.remove(task[0])
+    return jsonify({'result': "Deleted"}),200
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
