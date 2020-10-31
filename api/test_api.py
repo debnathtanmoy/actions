@@ -1,36 +1,63 @@
 import unittest
-from patients import Patient
-from patientrepository import patientrepositry
-from bedsrepository import BedsRepositry
+from api import app
+from flask import json
 
-
+# pylint: disable-all
 class Test(unittest.TestCase):
-    def test_add_beds_repository(self):
-        data = {"numberofbeds": "10"}
-        numberofbeds = data["numberofbeds"]
-        response = BedsRepositry.addBeds(numberofbeds)
-        expected = "10 beds are added"
-        self.assertEqual(response, expected)
+    def test_get_product(self):
+        response = app.test_client().get(
+        '/getproduct')
 
-    def test_patient_entry(self):
-        data = {"name": "Suresh", "age": "70"}
-        patientdetails = Patient(data['name'], data['age'])
-        response = patientrepositry.addPatient(patientdetails)
-        expected = "Bed number 1 is now occupied by Suresh"
-        self.assertEqual(response, expected)
+        data = json.loads(response.get_data(as_text=True))
 
-    def test_check_vitals(self):
-        response = patientrepositry.patientCheckVitals()
-        expected = ''
-        self.assertEqual(response, expected)
+        self.assertEqual(response.status_code, 200)
 
-    def test_discharge_patient(self):
-        data = {"bedid": "1"}
-        bedid = data["bedid"]
-        response = patientrepositry.dischargePatient(bedid)
-        # expected = "Patient Suresh is discharged"
-        expectedd = ' '
-        self.assertEqual(response, expectedd)
+        expected = [
+        {
+            "id": "1",
+            "name": "mx33"
+        },
+        {
+            "id": "2",
+            "name": "mx34"
+        },
+        {
+            "id": "3",
+            "name": "mx35"
+        },
+         {"id" : "007",
+            "name" : "bond"}
+        ]
+        self.assertEqual(data, expected)
+
+    def test_add_product(self):
+        response = app.test_client().post(
+        '/addproducts',
+        
+        data=json.dumps({'id': '007', 'name':'bond'}),
+        content_type='application/json',)
+
+        data = json.loads(response.get_data(as_text=True))
+
+        self.assertEqual(response.status_code, 201)
+
+        expected = [
+        {
+            "id": "1",
+            "name": "mx33"
+        },
+        {
+            "id": "2",
+            "name": "mx34"
+        },
+        {
+            "id": "3",
+            "name": "mx35"
+        },
+            {"id" : "007",
+            "name" : "bond"}
+    ]
+        self.assertEqual(data, expected)
 
 
 if __name__ == '__main__':
