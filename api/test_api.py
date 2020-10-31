@@ -2,7 +2,7 @@ import unittest
 from api import app
 from flask import json
 
-# pylint: disable-all
+#flake8: disable-noqa
 class Test(unittest.TestCase):
     def test_get_product(self):
         response = app.test_client().get(

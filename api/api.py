@@ -3,7 +3,7 @@ from flask import jsonify
 # from flask import abort
 from flask import request
 
-# pylint: disable-all
+#flake8: disable-noqa
 app = flask.Flask(__name__)
 app.config["DEBUG"] = True
 
