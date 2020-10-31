@@ -1,8 +1,9 @@
-# Alert to Care
+# Assist a Purchase
 
-This project implements a service that receives
-measurements from devices that monitor patients.
-It's part of a solution that provides care in an ICU.
+Philips offers monitoring solutions, as [seen here](https://www.philips.co.in/healthcare/solutions/patient-monitoring/continuous-patient-monitoring-systems).
+
+This project assists in selecting and delivering the right solution.
+It serves both the customer as well as Philips personnel.
 
 It has two segments:
 
@@ -18,33 +19,34 @@ This project implements automated tests, which behave as a non-GUI client.
 
 ## [Segment 1] Web API
 
-The product API covers the following user-stories.
+### Respond to questions
 
-### Configuration
+The web-service must respond with answers to questions in a stateless manner.
+This is a technique for scaling your solution.
+The server’s resource-requirements are greatly simplified
+when it doesn’t need to keep track of every client’s previous question.
 
-A setup-client needs to configure an ICU.
-Context: This configuration relates the alerts to a patient-bed
+Design a hierarchy of interactions.
+At the start of a search, clients need to know the broad categories on offer.
+Once the category is clear, clients get interested in performance and specification.
+Clients will then focus on one or two models.
 
-Acceptance criteria: The configuration needs to include:
+Do not impose this hierarchy.
+A repeat-visitor could be specific about the model at the start itself.
 
-- Number of beds
-- Bed-identification
-- Layout information
+### Configure
 
-### Occupancy Interface
+The web-service shall offer interfaces for configuration:
 
-An occupancy-management-client needs to set the status of each bed
+- Read available models
+- Add new models
+- Remove obsolete ones.
 
-- Occupancy of each bed
-- Enter Patient details
-- Discharging a patient
+### Follow the leads
 
-### Monitoring
-
-A monitoring-client needs to act on alerts
-Subscribers can be a GUI, an SMS service, a mobile app, etc.
-
-Provide a facility to turn off alarms
+It shall offer an interface to alert subscribers when a user selects a model.
+A possible subscriber could be the sales department of the region, for example.
+Optionally, extend the web-service to cater to other languages as well.
 
 ### REST API guidelines
 
@@ -53,47 +55,40 @@ Provide a facility to turn off alarms
 
 ## [Segment 2] User-interface
 
-### User-story: Setup
+### User-story: Conversation
 
-As Operations, I need to setup the ICU alert-service and its interface
+As a first-time visitor, I need to have a conversation about the
+Continuous Monitoring devices offered.
+As Philips, we need to automate this conversation with a chat-bot.
+Our sales personnel can then focus on the customer's needs.
 
-Example: The hospital has an ICU with 12 beds. I need to setup the server,
-install the software and configure the number and layout of the beds.
-
-Acceptance Criteria:
-
-- The setup can have a maximum of 4 manual steps.
-All manual steps shall be at the beginning or the end of installation.
-(Manual steps in the middle of installation are confusing for operations)
-- Errors during the setup shall produce logs.
-These logs will lead to repair-actions by Operations.
-- The layouts provided shall cater to a minimum of two common ICU layouts
-
-### User-story: Manage Occupancy
-
-As a nurse, I need to set the occupancy of beds
-
-Example: When admission or discharge occurs,
-I need a GUI to mark the bed
+Example: The chat-bot starts about broad categories in clinical terms,
+after which it comes down to technical specifications and models.
 
 Acceptance Criteria:
 
-- There shall be no alerts shown from empty beds.
-Don’t assume that the patient monitor has a network-interface to shut it down.
-- Admission and discharge shall be possible with a maximum of 3 clicks.
+- At every stage, the maximum number of choices presented is four
+- It shall be possible to start the conversation at any stage
 
-### User-story: Respond to care
+### User-story: Configuration
 
-As a nurse, I need to manage and respond to alerts
+As Operations, I need to update the models as per the catalog.
 
-Example: After I’ve handled an alert of a patient’s parameter,
-I need to reset it on the GUI
+Example: We release new Variants and Models,
+while older ones go obsolete.
 
 Acceptance Criteria:
 
-- Resetting an alert of a patient’s parameter shall be possible
-with a single click
-- It shall be possible to undo the reset
-(a single click can be a mistake)
-- Optional: Patient-specific alerts:
-It shall be possible to configure the thresholds per patient
+- Updates to the models are visible in customer-conversations
+
+### User-story: Sales leads
+
+As Sales, I need to follow-up with customers
+who have expressed interest in a particular model.
+
+Example: I receive an e-mail when a customer wants a human interface.
+
+Acceptance Criteria:
+
+- The e-mail must have sufficient detail to contact the correct person
+on the customer-side.
