@@ -48,7 +48,7 @@ def addproduct():
     return jsonify(products),201
 
 @app.route('/deleteprod/<int:task_id>', methods=['DELETE'])
-def delete_task(task_id):
+def delete_product(task_id):
     # task = [task for task in products if task['id'] == task_id]
     # if len(task) == 0:
     #     abort(404)
@@ -62,6 +62,22 @@ def delete_task(task_id):
             products.remove(tasks[0])
             return jsonify({'result': "Deleted"}),200
             
+@app.route('/updateprod/<int:task_id>', methods=['PUT'])
+def update_product(task_id):
+    # task = [task for task in products if task['id'] == task_id]
+    # if len(task) == 0:
+    #     abort(404)
+    # products.remove(task[0])
+    # return jsonify({'result': "Deleted"}),200
+    for task in products:
+        if task['id'] == task_id:
+            # if len(task) == 0:
+            #     abort(404)
+            tasks = [task]
+            tasks[0]["id"] = request.json["id"]
+            tasks[0]["title"] = request.json["title"]
+            tasks[0]["description"] = request.json["description"]
+            return jsonify({'task': "updated"}),200
 
 if __name__ == '__main__':
     app.run(debug=True)
